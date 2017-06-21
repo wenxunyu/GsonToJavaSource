@@ -6,6 +6,7 @@ package com.builder.json;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -17,6 +18,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -211,7 +213,7 @@ public class GsonToJava extends JFrame {
 					return;
 				}
 				contentArea.setText(json);
-				//dialog("格式化成功", null);
+				// dialog("格式化成功", null);
 			}
 		});
 		save.addActionListener(new ActionListener() {
@@ -329,15 +331,27 @@ public class GsonToJava extends JFrame {
 		systemMenu.add(new AbstractAction("帮助") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				openURI("https://github.com/wenxunyu/GsonToJavaSource");
 			}
 		});
 		systemMenu.add(new AbstractAction("反馈") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				openURI("https://github.com/wenxunyu/GsonToJavaSource");
 			}
 		});
+	}
+
+	private void openURI(String url) {
+		try {
+			Desktop desktop = Desktop.getDesktop();
+			if (desktop.isSupported(Desktop.Action.BROWSE)) {
+				URI uri = new URI(url);
+				desktop.browse(uri);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public void initPopup() {
