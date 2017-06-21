@@ -1,0 +1,40 @@
+apply plugin: "java"
+
+sourceCompatibility = 1.7
+sourceSets.main.java.srcDirs = [ "src/"]
+sourceSets.main.resources.srcDirs=["src/"]
+archivesBaseName='GsonFormat 0.1.0'
+[compileJava, compileTestJava]*.options*.encoding = 'utf-8'
+
+project.ext.mainClassName = "com.builder.json.GsonToJava"
+
+task run(dependsOn: classes, type: JavaExec) {
+    main = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    ignoreExitValue = true
+}
+
+task dist(type: Jar) {
+    from files(sourceSets.main.output.classesDir)
+    from files(sourceSets.main.output.resourcesDir)
+    from {configurations.compile.collect {zipTree(it)}}
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+}
+dependencies {
+	compile fileTree(dir: 'libs',include: ['*.jar'])
+}
+dist.dependsOn classes
+
+task afterEclipseImport(description: "Post processing after project generation", group: "IDE") {
+  doLast {
+    def classpath = new XmlParser().parse(file(".classpath"))
+    new Node(classpath, "classpathentry", [ kind: 'src', path: 'assets' ]);
+    def writer = new FileWriter(file(".classpath"))
+    def printer = new XmlNodePrinter(new PrintWriter(writer))
+    printer.setPreserveWhitespace(true)
+    printer.print(classpath)
+  }
+}
