@@ -26,9 +26,9 @@ Thumbs.db
 .DS_Store
 
 # Eclipse project files
-.classpath
-.project
-.settings
+#.classpath
+#.project
+#.settings
 
 # Android Studio
 .idea
