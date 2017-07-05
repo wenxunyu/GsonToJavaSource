@@ -7,12 +7,12 @@
 
 如果只是偶尔使用，不想安装插件，下载此项目运行即可。
 # 编译运行
-电脑已有gradle环境，可以直接在JsonToJavaSrc目录下打开命令行  
+电脑已有<kbd>gradle<kbd>环境，可以直接在<kbd>JsonToJavaSrc</kbd>目录下打开命令行  
 输入以下命令运行程序:
 ```
 gradle run
 ```
-输入一下命令打包程序:
+输入以下命令打包程序:
 ```
 gradle dist
 ```
